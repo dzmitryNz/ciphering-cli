@@ -1,7 +1,12 @@
 const fs = require('fs');
-const { Readable, Writable, Transform } = require('stream');
+const Rot8 = require('./rot8');
+// const Caesar = require('./caesar');
+const fileWrite = require('./write');
+const fileRead = require('./read');
+// const { Readable, Writable, Transform } = require('stream');
 
-const { stdout, stderr } = process;
+const { stdin, stdout, stderr } = process;
+let inpt, outpt, log;
 
 const inputConfig = {};
 
@@ -12,6 +17,8 @@ process.on('exit', (code) => {
     if (code === 1) stderr.write('Error! Config is not present. Example config: C1-A-R0-C0');
     if (code === 2) stderr.write('Error! Doubled argument present ');
     if (code === 3) stderr.write('Error! Config is wrong. Example config: C1-A-R0-C0');
+    if (code === 4) stderr.write('Error! No such file or directory');
+    if (code === 5) stderr.write('Write Error! No such file or directory');
   }
 });
 
@@ -26,26 +33,52 @@ process.argv.forEach((val, index) => {
   if (key) inputConfig[key] = process.argv[index + 1];
 });
 
-const { config } = inputConfig;
+const { config, input, output } = inputConfig;
 
 if (config === undefined) process.exit(1);
-const splitedConfig = config.split('-');
+
+if (!input) inpt = stdin;
+else inpt = fileRead(input);
+// else inpt = fs.createReadStream(config.input, {});
+
+if (!output) outpt = stdout;
+else outpt = (data, path) => fileWrite(data, path);
+// else output = fs.createWriteStream(config.output, {});
+
 const chain = [];
+
+const splitedConfig = config.split('-');
 splitedConfig.map((el) => {
   if (el[0]) {
     if (!el[0].match(/C|R|A/)) process.exit(3);
     if (el[0].match(/C|R/) && !el[1].match(/1|0/)) process.exit(3);
   } else process.exit(1);
   chain.push(el);
+  return 'done';
 });
-inputConfig.chain = chain;
+
+// inpt = fileRead(config.input);
+console.log('readed -', inpt);
+const result = Rot8(inpt, 0);
+console.log('hashed -', result);
+const result2 = Rot8(result, 1);
+console.log('dehashed -', result2);
+outpt(result, output);
+
+// input.pipe(rot).pipe(stdout);
+
 console.log('\x1b[33m%s\x1b[0m', inputConfig);
 
-const write = fs.createWriteStream(inputConfig.output, {});
-const read = fs.createReadStream(inputConfig.input, {});
+// const inputArr = '';
 
-read.pipe(write);
-read.pipe(stdout);
+// read.pipe(inputArr);
+
+// console.log(inputArr);
+
+// chain.map((iter) => {
+
+// })
+
 
 // -c, --config: config for ciphers Config is a string with pattern {XY(-)}n, where:
 // X is a cipher mark:
