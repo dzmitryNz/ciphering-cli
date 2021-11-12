@@ -1,4 +1,4 @@
-const fs = require('fs');
+// const fs = require('fs');
 const Rot8 = require('./rot8');
 // const Caesar = require('./caesar');
 const fileWrite = require('./write');
@@ -6,7 +6,8 @@ const fileRead = require('./read');
 // const { Readable, Writable, Transform } = require('stream');
 
 const { stdin, stdout, stderr } = process;
-let inpt, outpt, log;
+let inpt;
+let outpt;
 
 const inputConfig = {};
 
@@ -78,7 +79,6 @@ console.log('\x1b[33m%s\x1b[0m', inputConfig);
 // chain.map((iter) => {
 
 // })
-
 
 // -c, --config: config for ciphers Config is a string with pattern {XY(-)}n, where:
 // X is a cipher mark:
