@@ -1,27 +1,33 @@
 /* eslint-disable no-continue */
 function Atbash(str) {
-  const alphabet = [
+  const alphabetUp = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+  ];
+
+  const alphabetLow = [
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
     'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
   ];
 
-  const alphabetReversed = alphabet.reverse();
+  let result = '';
+  let alphabet = [];
+  let alphabetReversed = [];
 
-  const result = [];
-  
   for (let i = 0; i < str.length; i += 1) {
+    const char = str.charCodeAt(i);
+    if (char > 64 && char < 91) alphabet = [...alphabetUp];
+    if (char > 96 && char < 123) alphabet = [...alphabetLow];
+    alphabetReversed = [...alphabet].reverse();
     if (alphabet.indexOf(str[i]) === -1) {
-      result.push(str[i]);
+      result += str[i];
       continue;
     }
-    for (let j = 0; j < alphabet.length; j += 1) {
-      if (str[i] === alphabet[j]) result.push(alphabetReversed[j]);
-    }
+    const index = alphabet.indexOf(str[i]);
+    result += alphabetReversed[index];
   }
 
-  return result.join('');
+  return result;
 }
 
 module.exports = Atbash;
