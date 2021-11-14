@@ -1,4 +1,3 @@
 Hello! 
 This is the ciphering CLI
 Working on streams.
-

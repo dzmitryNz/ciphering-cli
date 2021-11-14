@@ -16,8 +16,8 @@ function Atbash(str) {
 
   for (let i = 0; i < str.length; i += 1) {
     const char = str.charCodeAt(i);
-    if (char > 64 && char < 91) alphabet = [...alphabetUp];
-    if (char > 96 && char < 123) alphabet = [...alphabetLow];
+    if (char > 64 && char < 91) alphabet = alphabetUp;
+    if (char > 96 && char < 123) alphabet = alphabetLow;
     alphabetReversed = [...alphabet].reverse();
     if (alphabet.indexOf(str[i]) === -1) {
       result += str[i];

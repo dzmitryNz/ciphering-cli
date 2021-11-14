@@ -12,7 +12,7 @@ function Chaining(props) {
   const { input, output, chain } = props;
   if (input) readable = createReadStream(input);
   else readable = stdin;
-  if (output) writable = createWriteStream(output);
+  if (output) writable = createWriteStream(output, { flags: 'a' });
   else writable = stdout;
 
   readable.on('data', (chunk) => {
