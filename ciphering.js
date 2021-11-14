@@ -1,6 +1,6 @@
 // const fs = require('fs');
 const Rot8 = require('./rot8');
-// const Caesar = require('./caesar');
+const Caesar = require('./caesar');
 const fileWrite = require('./write');
 const fileRead = require('./read');
 // const { Readable, Writable, Transform } = require('stream');
@@ -18,8 +18,8 @@ process.on('exit', (code) => {
     if (code === 1) stderr.write('Error! Config is not present. Example config: C1-A-R0-C0');
     if (code === 2) stderr.write('Error! Doubled argument present ');
     if (code === 3) stderr.write('Error! Config is wrong. Example config: C1-A-R0-C0');
-    if (code === 4) stderr.write('Error! No such file or directory');
-    if (code === 5) stderr.write('Write Error! No such file or directory');
+    if (code === 4) stderr.write('Error! No such Input file or directory');
+    if (code === 5) stderr.write('Error! No such Output file or directory');
   }
 });
 
@@ -61,10 +61,17 @@ splitedConfig.map((el) => {
 // inpt = fileRead(config.input);
 console.log('readed -', inpt);
 const result = Rot8(inpt, 0);
-console.log('hashed -', result);
+console.log('Rot 0 -', result);
 const result2 = Rot8(result, 1);
-console.log('dehashed -', result2);
+console.log('Rot 1 -', result2);
+const result3 = Caesar(inpt, 0); 
+console.log('Caesar 0 -', result3);
+const result4 = Caesar(result3, 0); 
+console.log('Caesar 1 -', result4);
 outpt(result, output);
+outpt(result2, output);
+outpt(result3, output);
+outpt(result4, output);
 
 // input.pipe(rot).pipe(stdout);
 

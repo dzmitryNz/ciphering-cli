@@ -5,7 +5,7 @@ function fileRead(inputPath) {
   try {
     return fs.readFileSync(inputPath, 'utf8');
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     if (error.code === 'ENOENT') process.exit(4);
   }
 }
