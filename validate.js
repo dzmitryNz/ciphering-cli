@@ -46,7 +46,10 @@ function Validate(props) {
             if (el[1] === '1') result += ' decode Rot8 >';
           } else process.exit(3);
         }
-        if (el[0] === 'A') result += ' Atbash cipher >';
+        if (el[0] === 'A') {
+          if (el[1]) process.exit(3);
+          result += ' Atbash cipher >';
+        }
       } else process.exit(3);
     } else process.exit(1);
     chain.push(el);
