@@ -21,10 +21,10 @@ function Rot8(str, direction) {
       continue;
     }
     for (let j = 0; j < alphabet.length; j += 1) {
-      if (direction === 0) {
+      if (direction === '1') {
         if (str[i] === alphabet[j]) result.push(alphabet8[j]);
       }
-      if (direction === 1) {
+      if (direction === '0') {
         if (str[i] === alphabet8[j]) result.push(alphabet[j]);
       }
     }

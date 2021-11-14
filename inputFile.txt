@@ -1,4 +1,4 @@
-Hello 
+Hello! 
+This is the ciphering CLI
+Working on streams.
 
-
-You are work

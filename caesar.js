@@ -1,8 +1,7 @@
 function Caesar(str, direction) {
   let result = '';
-  const shift = direction ? -1 : 1;
+  const shift = direction === '0' ? 1 : -1;
   const compensation = 26;
-  console.log(str, str.length, direction, shift, compensation);
 
   const alphabetUp = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',

@@ -1,12 +1,13 @@
-const fs = require('fs');
+const { createWriteStream } = require('fs');
 
-function fileWrite(data, outputPath) {
-  try {
-    fs.appendFileSync(outputPath, data);
-  } catch (err) {
-    // console.log(err);
-    if (error.code === 'ENOENT') process.exit(5);
-  }
-}
+const writable = createWriteStream('./output.txt');
 
-module.exports = fileWrite;
+writable.cork();
+
+writable.write('First Line\n');
+writable.write('First Line\n');
+writable.write('First Line\n');
+writable.write('First Line\n');
+writable.end('Finish line\n');
+
+writable.uncork();

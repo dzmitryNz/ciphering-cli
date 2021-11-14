@@ -1,13 +1,14 @@
-/* eslint-disable consistent-return */
-const fs = require('fs');
+const { createReadStream } = require('fs');
 
-function fileRead(inputPath) {
-  try {
-    return fs.readFileSync(inputPath, 'utf8');
-  } catch (error) {
-    // console.log(error);
-    if (error.code === 'ENOENT') process.exit(4);
-  }
+function Read(inputPath) {
+  const readable = inputPath ? createReadStream(inputPath) : process.stdin;
+
+  let text = '';
+  readable.on('data', (chunk) => {
+    text += chunk.toString();
+  });
+
+  return text;
 }
 
-module.exports = fileRead;
+module.exports = Read;

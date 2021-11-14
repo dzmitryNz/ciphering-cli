@@ -1,19 +1,13 @@
-// const fs = require('fs');
-const Rot8 = require('./rot8');
-const Caesar = require('./caesar');
-const fileWrite = require('./write');
-const fileRead = require('./read');
-// const { Readable, Writable, Transform } = require('stream');
-
-const { stdin, stdout, stderr } = process;
-let inpt;
-let outpt;
+const Validate = require('./validate');
+const Chaining = require('./chaining');
 
 const inputConfig = {};
 
+const { stderr, stdout } = process;
+
 process.on('exit', (code) => {
   if (code === 0) {
-    stdout.write('Всё готово!!! All done!!!');
+    stdout.write('Thanks. Good Luck!!!');
   } else {
     if (code === 1) stderr.write('Error! Config is not present. Example config: C1-A-R0-C0');
     if (code === 2) stderr.write('Error! Doubled argument present ');
@@ -34,58 +28,9 @@ process.argv.forEach((val, index) => {
   if (key) inputConfig[key] = process.argv[index + 1];
 });
 
-const { config, input, output } = inputConfig;
+inputConfig.chain = Validate(inputConfig);
 
-if (config === undefined) process.exit(1);
-
-if (!input) inpt = stdin;
-else inpt = fileRead(input);
-// else inpt = fs.createReadStream(config.input, {});
-
-if (!output) outpt = stdout;
-else outpt = (data, path) => fileWrite(data, path);
-// else output = fs.createWriteStream(config.output, {});
-
-const chain = [];
-
-const splitedConfig = config.split('-');
-splitedConfig.map((el) => {
-  if (el[0]) {
-    if (!el[0].match(/C|R|A/)) process.exit(3);
-    if (el[0].match(/C|R/) && !el[1].match(/1|0/)) process.exit(3);
-  } else process.exit(1);
-  chain.push(el);
-  return 'done';
-});
-
-// inpt = fileRead(config.input);
-console.log('readed -', inpt);
-const result = Rot8(inpt, 0);
-console.log('Rot 0 -', result);
-const result2 = Rot8(result, 1);
-console.log('Rot 1 -', result2);
-const result3 = Caesar(inpt, 0); 
-console.log('Caesar 0 -', result3);
-const result4 = Caesar(result3, 0); 
-console.log('Caesar 1 -', result4);
-outpt(result, output);
-outpt(result2, output);
-outpt(result3, output);
-outpt(result4, output);
-
-// input.pipe(rot).pipe(stdout);
-
-console.log('\x1b[33m%s\x1b[0m', inputConfig);
-
-// const inputArr = '';
-
-// read.pipe(inputArr);
-
-// console.log(inputArr);
-
-// chain.map((iter) => {
-
-// })
+Chaining(inputConfig);
 
 // -c, --config: config for ciphers Config is a string with pattern {XY(-)}n, where:
 // X is a cipher mark:
