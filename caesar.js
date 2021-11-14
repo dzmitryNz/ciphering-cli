@@ -1,6 +1,6 @@
 function Caesar(str, direction) {
   let result = '';
-  const shift = direction === '0' ? 1 : -1;
+  const shift = direction === '0' ? -1 : 1;
   const compensation = 26;
 
   const alphabetUp = [

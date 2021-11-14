@@ -1,3 +1,1 @@
-Hello! 
-This is the ciphering CLI
-Working on streams.
+This is secret. Message about "_" symbol!
