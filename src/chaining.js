@@ -15,9 +15,7 @@ function Chaining(props) {
   if (output) writable = createWriteStream(output, { flags: 'a' });
   else writable = stdout;
 
-  readable.on('data', (chunk) => {
-    chunk.toString();
-  });
+  readable.on('data', (chunk) => { chunk.toString(); });
 
   const transform = new Transform({
     transform(chunk, enc, cb) {

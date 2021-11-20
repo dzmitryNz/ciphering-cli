@@ -1,5 +1,3 @@
-// const { spawn } = require('child_process');
-// const path = require('path');
 const validate = require('../src/validate');
 
 const configNormRef = ['C0', 'C1', 'R1', 'R0', 'A'];
@@ -57,7 +55,7 @@ describe('Validate tests', () => {
   [...Array(30)].map(() => {
     it('Validate wrong config props test', async () => {
       const mockExit = jest.spyOn(process, 'exit')
-        .mockImplementation((number) => { throw new Error(`process.exit: ${number}`); });
+        .mockImplementation((num) => { throw new Error(`process.exit: ${num}`); });
       expect(() => {
         validate({ input: inputFile, output: outputFile, config: configWrong });
       }).toThrow();
@@ -69,7 +67,7 @@ describe('Validate tests', () => {
 
   it('Validate no config test', async () => {
     const mockExit = jest.spyOn(process, 'exit')
-      .mockImplementation((number) => { throw new Error(`process.exit: ${number}`); });
+      .mockImplementation((num) => { throw new Error(`process.exit: ${num}`); });
     expect(() => {
       validate({ input: inputFile, output: outputFile });
     }).toThrow();
@@ -79,7 +77,7 @@ describe('Validate tests', () => {
 
   it('Validate empty string config test', async () => {
     const mockExit = jest.spyOn(process, 'exit')
-      .mockImplementation((number) => { throw new Error(`process.exit: ${number}`); });
+      .mockImplementation((num) => { throw new Error(`process.exit: ${num}`); });
     expect(() => {
       validate({ input: inputFile, output: outputFile, config: '' });
     }).toThrow();
@@ -103,7 +101,7 @@ describe('Validate tests', () => {
 
   it('Validate wrong output test', async () => {
     const mockExit = jest.spyOn(process, 'exit')
-      .mockImplementation((number) => { throw new Error(`process.exit: ${number}`); });
+      .mockImplementation((num) => { throw new Error(`process.exit: ${num}`); });
     expect(() => {
       validate({ output: 'output.txt', config: configNorm });
     }).toThrow();
@@ -115,7 +113,7 @@ describe('Validate tests', () => {
 
   it('Validate wrong input test', async () => {
     const mockExit = jest.spyOn(process, 'exit')
-      .mockImplementation((number) => { throw new Error(`process.exit: ${number}`); });
+      .mockImplementation((num) => { throw new Error(`process.exit: ${num}`); });
     expect(() => {
       validate({ input: 'output.txt', config: configNorm });
     }).toThrow();
