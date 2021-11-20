@@ -32,7 +32,6 @@ function Validate(props) {
   splitedConfig.map((el) => {
     if (el.length > 2) process.exit(3);
     if (el[0]) {
-      // if (el[0].match(/C|R/) && !el[1].match(/1|0/)) process.exit(3);
       if (el[0].match(/C|R|A/)) {
         if (el[0] === 'C') {
           if (el[1] === '1' || el[1] === '0') {
