@@ -14,7 +14,7 @@ function Validate(props) {
     }
   }
 
-  console.log('\x1b[33m%s\x1b[0m', `source: ${input || 'console'}`);
+  console.log(`source: ${input || 'console'}`);
 
   if (output) {
     try {
@@ -24,7 +24,7 @@ function Validate(props) {
       if (err.code === 'ENOENT') process.exit(5);
     }
   }
-  console.log('\x1b[34m%s\x1b[0m', `target: ${output || 'console'}`);
+  console.log(`target: ${output || 'console'}`);
 
   const chain = [];
   const splitedConfig = config.split('-');
@@ -56,7 +56,7 @@ function Validate(props) {
   });
   result += ' RESULT';
 
-  console.log('\x1b[32m', result, '\x1b[0m');
+  console.log(result);
   return chain;
 }
 
