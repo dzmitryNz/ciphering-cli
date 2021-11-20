@@ -10,7 +10,6 @@ function Validate(props) {
     try {
       fs.readFileSync(input);
     } catch (err) {
-    // console.log(err);
       if (err.code === 'ENOENT') process.exit(4);
     }
   }

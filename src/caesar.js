@@ -19,18 +19,15 @@ function Caesar(str, direction) {
     const smb = str[i];
     let res = smb;
     let indx = 0;
-    if (alphabetUp.indexOf(smb) !== -1) {
-      indx = alphabetUp.indexOf(smb) + shift;
-      if (indx > lastAlphabetIndx) indx -= compensation;
-      if (indx < firstAlphabetIndx) indx += compensation;
-      res = alphabetUp[indx];
-    }
+    let alphabet;
 
-    if (alphabetLow.indexOf(smb) !== -1) {
-      indx = alphabetLow.indexOf(smb) + shift;
+    if (alphabetUp.indexOf(smb) !== -1) alphabet = alphabetUp;
+    if (alphabetLow.indexOf(smb) !== -1) alphabet = alphabetLow;
+    if (alphabet) {
+      indx = alphabet.indexOf(smb) + shift;
       if (indx > lastAlphabetIndx) indx -= compensation;
       if (indx < firstAlphabetIndx) indx += compensation;
-      res = alphabetLow[indx];
+      res = alphabet[indx];
     }
     result += res;
   }

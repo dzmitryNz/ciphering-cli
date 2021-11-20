@@ -1,9 +1,26 @@
 const caesar = require('../src/caesar');
 
-test('Caesar encoding testing', () => {
-  expect(caesar('How Are You! Русские символы', '0')).toBe('Gnv Zqd Xnt! Русские символы');
-});
+let strIn;
+let strOut;
+// let mock;
 
-test('Caesar decoding testing', () => {
-  expect(caesar('Gnv Zqd Xnt! Русские символы', '1')).toBe('How Are You! Русские символы');
+describe('Caesar tests', () => {
+  beforeEach(() => {
+    strIn = 'How Are You! Русские символы';
+    strOut = 'Gnv Zqd Xnt! Русские символы';
+    // mock = jest.fn((x) => x);
+  });
+
+  test('Caesar encoding test', () => {
+    expect(caesar(strIn, '0')).toBe(strOut);
+  });
+
+  test('Caesar decoding test', () => {
+    expect(caesar(strOut, '1')).toBe(strIn);
+  });
+
+  test('Caesar encoding - decoding test', () => {
+    const result1 = caesar(strIn, '0');
+    expect(caesar(result1, '1')).toBe(strIn);
+  });
 });
