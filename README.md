@@ -1,3 +1,16 @@
+Клонируйте репозиторий 
+git clone 
+
+установите зависимости
+npm install
+
+запуск тестов
+npm run test
+
+запуск тестов c расчётом покрытия
+npm run test-coverage
+
+
 # Task 2 Testing
 ## Testing
 Write tests for Ciphering machine CLI from 1st task.
