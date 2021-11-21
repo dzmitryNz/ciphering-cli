@@ -2,11 +2,17 @@ const validate = require('../src/validate');
 
 const configNormRef = ['C0', 'C1', 'R1', 'R0', 'A'];
 const configWrongRef = ['C', '1', 'R', '0', 'A1', 'c1', 1, 0, 'Cdd', 'Cddfsdfsd0', 'cdfsdf'];
-let inputFile;
-let outputFile;
+const inputFile = './inputFile.txt';
+const outputFile = './outputFile.txt';
+const outSourceFile = 'source: ./inputFile.txt';
+const outSourceConsole = 'source: console';
+const outTargetFile = 'target: ./outputFile.txt';
+const outTargetConsole = 'target: console';
+const wrongInputFile = 'input.txt';
+const wrongOutputFile = 'output.txt';
 let configNorm;
 let configWrong;
-const maxConfigLength = 5;
+const maxConfigLength = 10;
 
 function setConfig(config) {
   const defConf = config === configNormRef ? 'C1' : 'c';
@@ -29,25 +35,20 @@ describe('Validate tests', () => {
   beforeEach(() => {
     console.log = testConsoleLog;
     testOut = [];
+    configNorm = setConfig(configNormRef);
+    configWrong = setConfig(configWrongRef);
   });
 
   afterEach(() => {
     console.log = consoleLog;
   });
 
-  beforeEach(() => {
-    inputFile = 'inputFile.txt';
-    outputFile = 'outputFile.txt';
-    configNorm = setConfig(configNormRef);
-    configWrong = setConfig(configWrongRef);
-  });
-
-  [...Array(20)].map(() => {
+  [...Array(30)].map(() => {
     test('Validate normal config props test', () => {
       expect(validate({ input: inputFile, output: outputFile, config: configNorm })).toEqual(configNorm.split('-'));
       expect(testOut).toHaveLength(3);
-      expect(testOut[0]).toBe('source: inputFile.txt');
-      expect(testOut[1]).toBe('target: outputFile.txt');
+      expect(testOut[0]).toBe(outSourceFile);
+      expect(testOut[1]).toBe(outTargetFile);
     });
     return 'End';
   });
@@ -86,36 +87,36 @@ describe('Validate tests', () => {
   });
 
   test('Validate no input test', () => {
-    expect(validate({ output: 'outputFile.txt', config: configNorm })).toEqual(configNorm.split('-'));
+    expect(validate({ output: outputFile, config: configNorm })).toEqual(configNorm.split('-'));
     expect(testOut).toHaveLength(3);
-    expect(testOut[0]).toBe('source: console');
-    expect(testOut[1]).toBe('target: outputFile.txt');
+    expect(testOut[0]).toBe(outSourceConsole);
+    expect(testOut[1]).toBe(outTargetFile);
   });
 
   test('Validate no output test', () => {
-    expect(validate({ input: 'inputFile.txt', config: configNorm })).toEqual(configNorm.split('-'));
+    expect(validate({ input: inputFile, config: configNorm })).toEqual(configNorm.split('-'));
     expect(testOut).toHaveLength(3);
-    expect(testOut[0]).toBe('source: inputFile.txt');
-    expect(testOut[1]).toBe('target: console');
+    expect(testOut[0]).toBe(outSourceFile);
+    expect(testOut[1]).toBe(outTargetConsole);
   });
 
   it('Validate wrong output test', async () => {
     const mockExit = jest.spyOn(process, 'exit')
       .mockImplementation((num) => { throw new Error(`process.exit: ${num}`); });
     expect(() => {
-      validate({ output: 'output.txt', config: configNorm });
+      validate({ output: wrongOutputFile, config: configNorm });
     }).toThrow();
     expect(mockExit).toHaveBeenCalledWith(5);
     mockExit.mockRestore();
     expect(testOut).toHaveLength(1);
-    expect(testOut[0]).toBe('source: console');
+    expect(testOut[0]).toBe(outSourceConsole);
   });
 
   it('Validate wrong input test', async () => {
     const mockExit = jest.spyOn(process, 'exit')
       .mockImplementation((num) => { throw new Error(`process.exit: ${num}`); });
     expect(() => {
-      validate({ input: 'output.txt', config: configNorm });
+      validate({ input: wrongInputFile, config: configNorm });
     }).toThrow();
     expect(mockExit).toHaveBeenCalledWith(4);
     mockExit.mockRestore();

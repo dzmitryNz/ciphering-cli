@@ -13,7 +13,7 @@
     "eslint-plugin-import": "^2.25.2"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --verbose",
     "test-coverage": "jest --coverage"
   },
   "author": "",
