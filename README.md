@@ -1,5 +1,7 @@
 Клонируйте репозиторий 
-git clone 
+git clone https://github.com/dzmitryNz/ciphering-cli.git
+
+переключитесь в ветку testing
 
 установите зависимости
 npm install
