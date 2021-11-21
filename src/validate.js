@@ -2,7 +2,7 @@ const fs = require('fs');
 
 function Validate(props) {
   const { input, output, config } = props;
-  let result = 'cipering chain: ';
+  let result = 'ciphering chain: ';
 
   if (config === undefined) process.exit(1);
 

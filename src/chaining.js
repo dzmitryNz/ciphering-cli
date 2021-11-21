@@ -7,6 +7,7 @@ const Atbash = require('./atbash');
 const { stdin, stdout } = process;
 
 function Chaining(props) {
+  const rslt = [];
   let readable;
   let writable;
   const { input, output, chain } = props;
@@ -37,7 +38,7 @@ function Chaining(props) {
         }
         return 'Done!';
       });
-
+      rslt.push(result);
       this.push(result);
 
       cb();
@@ -47,6 +48,8 @@ function Chaining(props) {
   pipeline(
     readable, transform, writable, () => { },
   );
+
+  return rslt;
 }
 
 module.exports = Chaining;
