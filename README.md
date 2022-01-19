@@ -1,8 +1,6 @@
 Клонируйте репозиторий 
 git clone https://github.com/dzmitryNz/ciphering-cli.git
 
-переключитесь в ветку testing
-
 установите зависимости
 npm install
 
@@ -12,8 +10,6 @@ npm run test
 запуск тестов c расчётом покрытия
 npm run test-coverage
 
-
-# Task 2 Testing
 ## Testing
 Write tests for Ciphering machine CLI from 1st task.
 For writing tests Jest testing framework should be used.
